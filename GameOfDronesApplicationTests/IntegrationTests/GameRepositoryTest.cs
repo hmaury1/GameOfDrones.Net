@@ -28,9 +28,9 @@ namespace GameOfDronesApplicationTests.IntegrationTests
         //{
         //    string Name = "GBAM";
 
-        //    var data = _departmentRepository.GetPagedDepartmentByName(Name).ToList();
+        //    var data = _gameRepository.GetPagedDepartmentByName(Name).ToList();
 
-        //    if(!data.Any())
+        //    if (!data.Any())
         //    {
         //        Assert.Warn("There is no data in the table for this test case");
         //    }
@@ -44,7 +44,7 @@ namespace GameOfDronesApplicationTests.IntegrationTests
         //{
         //    int id = 3;
 
-        //    var data = _departmentRepository.GetPagedDepartmentById(id).ToList();
+        //    var data = _gameRepository.GetPagedDepartmentById(id).ToList();
 
         //    if (!data.Any())
         //    {
@@ -62,7 +62,7 @@ namespace GameOfDronesApplicationTests.IntegrationTests
         //    int pageNo = 2;
         //    string Name = "GMRT";
 
-        //    var data = _departmentRepository.GetPagedDepartmentByName(Name, pageSize, pageNo).ToList();
+        //    var data = _gameRepository.GetPagedDepartmentByName(Name, pageSize, pageNo).ToList();
 
         //    if (!data.Any())
         //    {
@@ -79,7 +79,7 @@ namespace GameOfDronesApplicationTests.IntegrationTests
         //    int pageNo = 2;
         //    int id = 2;
 
-        //    var data = _departmentRepository.GetPagedDepartmentById(id, pageSize, pageNo).ToList();
+        //    var data = _gameRepository.GetPagedDepartmentById(id, pageSize, pageNo).ToList();
 
         //    if (!data.Any())
         //    {
