@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameOfDronesDataAccessLayer</RootNamespace>
     <AssemblyName>GameOfDronesDataAccessLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,22 +52,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\Entities\Department.cs" />
-    <Compile Include="DataAccess\Entities\Employee.cs" />
     <Compile Include="DataAccess\Entities\Game.cs" />
     <Compile Include="DataAccess\Entities\Move.cs" />
     <Compile Include="DataAccess\Entities\Player.cs" />
     <Compile Include="DataAccess\Entities\Round.cs" />
-    <Compile Include="DataAccess\Interfaces\IDepartmentRepository.cs" />
-    <Compile Include="DataAccess\Interfaces\IEmployeeRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IGameRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IMoveRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IPlayerRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRepository.cs" />
     <Compile Include="DataAccess\Interfaces\IRoundRepository.cs" />
     <Compile Include="DataAccess\Repositories\BaseRepository.cs" />
-    <Compile Include="DataAccess\Repositories\DepartmentRepository.cs" />
-    <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\AppContext.cs" />
     <Compile Include="DataAccess\Repositories\GameRepository.cs" />
     <Compile Include="DataAccess\Repositories\MoveRepository.cs" />

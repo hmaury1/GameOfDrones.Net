@@ -12,78 +12,22 @@ namespace GameOfDronesDataAccessLayer.Implementations
 {
     public class AppService :IAppService
     {
-        public readonly IEmployeeRepository EmployeeRepository;
-        public readonly IDepartmentRepository DepartmentRepository;
         public readonly IGameRepository GameRepository;
         public readonly IPlayerRepository PlayerRepository;
         public readonly IMoveRepository MoveRepository;
         public readonly IRoundRepository RoundRepository;
 
-        public AppService(IEmployeeRepository employeeRepository,
-            IDepartmentRepository departmentRepository,
+        public AppService(
             IGameRepository gameRepository,
             IPlayerRepository playerRepository,
             IMoveRepository moveRepository,
             IRoundRepository roundRepository
         )
         {
-            EmployeeRepository = employeeRepository;
-            DepartmentRepository = departmentRepository;
             GameRepository = gameRepository;
             PlayerRepository = playerRepository;
             MoveRepository = moveRepository;
             RoundRepository = roundRepository;
-        }
-
-        public IEnumerable<EmployeeDataModel> GetPagedEmployeeDataById(int id, int pageSize = 10, int pageNo = 1)
-        {
-            try
-            {
-                var employeeData = EmployeeRepository.GetPagedEmployeeById(id, pageSize, pageNo);
-                var departmentData = DepartmentRepository.GetPagedDepartmentById(id, pageSize, pageNo);
-                var employeeDataModel = from e in employeeData
-                    join d in departmentData
-                        on e.EmployeedId equals d.DepartmentId
-                    select new EmployeeDataModel
-                    {
-                        EmployeedId = e.EmployeedId,
-                        EmployeeName = e.EmployeeName,
-                        Age = (DateTime.Today.Year - e.EmployeeBirthday.Year),
-                        DepartmentName = d.DepartmentName
-                    };
-                return employeeDataModel.ToList();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public IEnumerable<EmployeeDataModel> GetPagedEmployeeDataByName(string name, int pageSize = 10, int pageNo = 1)
-        {
-            try
-            {
-                var employeeData = EmployeeRepository.GetPagedEmployeeByName(name, pageSize, pageNo).ToList();
-                var departmentData = DepartmentRepository.DepartmentPagedData(pageSize, pageNo).ToList();
-                var employeeDataModel = from e in employeeData
-                    join d in departmentData
-                        on e.DepartmentId equals d.DepartmentId into x
-                    from result in x.DefaultIfEmpty()
-                    select new EmployeeDataModel
-                    {
-                        EmployeedId = e.EmployeedId,
-                        EmployeeName = e.EmployeeName,
-                        Age = (DateTime.Today.Year - e.EmployeeBirthday.Year),
-                        DepartmentName = result.DepartmentName
-                    };
-                return employeeDataModel.ToList();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
 
         public GameDataModel StartNewGame(string playerOneName, string playerTwoName)
@@ -269,6 +213,7 @@ namespace GameOfDronesDataAccessLayer.Implementations
                                          }).FirstOrDefault(),
                            createdOn = g.createdOn,
                            rounds = (from r in RoundRepository.GetAll().ToList()
+                                     where r.gameId == g.id
                                      select new RoundDataModel
                                      {
                                          id = r.id,

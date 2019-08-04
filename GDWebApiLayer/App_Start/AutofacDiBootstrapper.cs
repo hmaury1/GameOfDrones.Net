@@ -4,14 +4,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.WebApi;
-using GameOfDronesContractsLayer.Contracts.Interfaces;
-using GameOfDronesDataAccessLayer.DataAccess;
-using GameOfDronesDataAccessLayer.DataAccess.Interfaces;
-using GameOfDronesDataAccessLayer.DataAccess.Repositories;
-using GameOfDronesDataAccessLayer.Implementations;
-using GameOfDronesWebApiLayer.Controllers;
+using GDWebApiLayer.Controllers;
 
-namespace GameOfDronesWebApiLayer
+namespace GDWebApiLayer
 {
     public static class AutofacDiBootstrapper
     {
@@ -19,8 +14,8 @@ namespace GameOfDronesWebApiLayer
         {
             var containerBuilder = new ContainerBuilder();
             SetupRegistration.Bootstrap(containerBuilder);
-            containerBuilder.RegisterApiControllers(typeof(EmployeeController).Assembly);
             containerBuilder.RegisterApiControllers(typeof(GameController).Assembly);
+            containerBuilder.RegisterApiControllers(typeof(MoveController).Assembly);
             var container = containerBuilder.Build();
             var webApiResolver = new AutofacWebApiDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;

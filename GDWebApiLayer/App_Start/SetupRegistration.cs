@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using Autofac;
-using GameOfDronesContractsLayer.Contracts.Interfaces;
 using GameOfDronesDataAccessLayer.DataAccess;
 using GameOfDronesDataAccessLayer.DataAccess.Interfaces;
 using GameOfDronesDataAccessLayer.DataAccess.Repositories;
 using GameOfDronesDataAccessLayer.Implementations;
 
-namespace GameOfDronesWebApiLayer
+namespace GDWebApiLayer
 {
     public static class SetupRegistration
     {
@@ -23,31 +22,21 @@ namespace GameOfDronesWebApiLayer
                 .InstancePerDependency();
 
             containerBuilder.RegisterType<GameRepository>()
-                .AsImplementedInterfaces()
-                .InstancePerRequest()
-                .PropertiesAutowired();
-
-            containerBuilder.RegisterType<PlayerRepository>()
-                .AsImplementedInterfaces()
-                .InstancePerRequest()
-                .PropertiesAutowired();
+              .AsImplementedInterfaces()
+              .InstancePerRequest()
+              .PropertiesAutowired();
 
             containerBuilder.RegisterType<MoveRepository>()
                 .AsImplementedInterfaces()
                 .InstancePerRequest()
                 .PropertiesAutowired();
 
+            containerBuilder.RegisterType<PlayerRepository>()
+              .AsImplementedInterfaces()
+              .InstancePerRequest()
+              .PropertiesAutowired();
+
             containerBuilder.RegisterType<RoundRepository>()
-                .AsImplementedInterfaces()
-                .InstancePerRequest()
-                .PropertiesAutowired();
-
-            containerBuilder.RegisterType<DepartmentRepository>()
-                .AsImplementedInterfaces()
-                .InstancePerRequest()
-                .PropertiesAutowired();
-
-            containerBuilder.RegisterType<EmployeeRepository>()
                 .AsImplementedInterfaces()
                 .InstancePerRequest()
                 .PropertiesAutowired();

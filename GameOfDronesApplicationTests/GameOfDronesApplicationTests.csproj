@@ -57,12 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntegrationTests\DepartmentRepositoryTest.cs" />
-    <Compile Include="IntegrationTests\EmployeeRepositoryTest.cs" />
+    <Compile Include="Unit Tests\GameRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Unit Tests\" />
+    <Folder Include="IntegrationTests\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -10,8 +10,6 @@ namespace GameOfDronesDataAccessLayer.DataAccess
             Database.SetInitializer<AppContext>(null); //new CreateDatabaseIfNotExists<SkAppContext>());
         }
 
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Department> Departments { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Move> Moves { get; set; }

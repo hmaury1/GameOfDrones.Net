@@ -1,5 +1,6 @@
 ﻿using GameOfDronesContractsLayer.Contracts.BusinessEntities;
 using GameOfDronesContractsLayer.Contracts.Interfaces;
+using GDWebApiLayer.Controllers.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,10 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace GameOfDronesWebApiLayer.Controllers
+namespace GDWebApiLayer.Controllers
 {
     [Route("api/game/")]
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GameController : ApiController
     {
         public readonly IAppService Appservice;
@@ -42,14 +43,14 @@ namespace GameOfDronesWebApiLayer.Controllers
 
         [Route("api/game/start")]
         [HttpPost]
-        public IHttpActionResult StartNewGame(string playerOneName, string playerTwoName)
+        public IHttpActionResult StartNewGame([FromBody] StartModel inputs)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Please check the parameters");
             }
 
-            var gameInstance = Appservice.StartNewGame(playerOneName, playerTwoName);
+            var gameInstance = Appservice.StartNewGame(inputs.playerOneName, inputs.playerTwoName);
 
             if (gameInstance == null)
             {

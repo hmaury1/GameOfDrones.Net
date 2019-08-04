@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameOfDronesContractsLayer</RootNamespace>
     <AssemblyName>GameOfDronesContractsLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\BusinessEntities\EmployeeDataModel.cs" />
     <Compile Include="Contracts\BusinessEntities\GameDataModel.cs" />
     <Compile Include="Contracts\BusinessEntities\MoveDataModel.cs" />
     <Compile Include="Contracts\BusinessEntities\PlayerDataModel.cs" />

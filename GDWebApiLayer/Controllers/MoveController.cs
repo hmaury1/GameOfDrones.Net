@@ -7,10 +7,10 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace GameOfDronesWebApiLayer.Controllers
+namespace GDWebApiLayer.Controllers
 {
     [Route("api/move/")]
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MoveController : ApiController
     {
         public readonly IAppService Appservice;
@@ -21,6 +21,7 @@ namespace GameOfDronesWebApiLayer.Controllers
         }
 
         [HttpGet]
+        [Route("api/move/moves")]
         public IHttpActionResult Get()
         {
             var _Data = Appservice.GetMoves();
