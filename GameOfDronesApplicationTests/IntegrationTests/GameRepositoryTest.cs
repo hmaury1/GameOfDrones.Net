@@ -23,71 +23,97 @@ namespace GameOfDronesApplicationTests.IntegrationTests
 
         }
 
-        //[Test]
-        //public void must_return_one_record_by_name()
-        //{
-        //    string Name = "GBAM";
+        [Test]
+        public void must_return_new_game()
+        {
+            string playerOneName = "Pablo";
+            string playerTwoName = "Jose";
 
-        //    var data = _gameRepository.GetPagedDepartmentByName(Name).ToList();
+            var data = _gameRepository.StartNewGame(playerOneName, playerTwoName);
 
-        //    if (!data.Any())
-        //    {
-        //        Assert.Warn("There is no data in the table for this test case");
-        //    }
+            if (data.id > 0)
+            {
+                Assert.Warn("There is no data for this test case");
+            }
 
-        //    else
-        //        Assert.IsTrue(data.Any());
-        //}
+            else
+                Assert.IsNotNull(data);
+        }
 
-        //[Test]
-        //public void must_return_one_record_by_id()
-        //{
-        //    int id = 3;
+        [Test]
+        public void must_return_the_statistics_records()
+        {
+            string playerOneName = "Pablo";
+            string playerTwoName = "Jose";
 
-        //    var data = _gameRepository.GetPagedDepartmentById(id).ToList();
+            var game = _gameRepository.StartNewGame(playerOneName, playerTwoName);
+            var data = _gameRepository.GetAll().ToList();
 
-        //    if (!data.Any())
-        //    {
-        //        Assert.Warn("There is no data in the table for this test case");
-        //    }
+            if (!data.Any())
+            {
+                Assert.Warn("There is no data in the table for this test case");
+            }
 
-        //    else
-        //        Assert.IsTrue(data.Any());
-        //}
+            else
+                Assert.IsTrue(data.Any());
+        }
 
-        //[Test]
-        //public void must_do_paging_by_name()
-        //{
-        //    int pageSize = 5;
-        //    int pageNo = 2;
-        //    string Name = "GMRT";
+        [Test]
+        public void must_set_a_round()
+        {
+            string playerOneName = "Pablo";
+            string playerTwoName = "Jose";
 
-        //    var data = _gameRepository.GetPagedDepartmentByName(Name, pageSize, pageNo).ToList();
+            var game = _gameRepository.StartNewGame(playerOneName, playerTwoName);
 
-        //    if (!data.Any())
-        //    {
-        //        Assert.Warn("There is no data in the table for this test case");
-        //    }
+            GameOfDronesDataAccessLayer.DataAccess.Entities.Round instance = new GameOfDronesDataAccessLayer.DataAccess.Entities.Round
+            {
+                gameId = game.id,
+                playerOneMoveId = 1,
+                playerTwoMoveId = 2
+            };
 
-        //    Assert.IsTrue(data.All(x => x.DepartmentName.ToUpper() == Name.ToUpper()));
-        //}
+            var round = _gameRepository.SetRound(instance);
 
-        //[Test]
-        //public void must_do_paging_by_id()
-        //{
-        //    int pageSize = 5;
-        //    int pageNo = 2;
-        //    int id = 2;
+            if (round.id > 0)
+            {
+                Assert.Warn("There is no data for this test case");
+            }
 
-        //    var data = _gameRepository.GetPagedDepartmentById(id, pageSize, pageNo).ToList();
+            else
+                Assert.IsNotNull(round);
+        }
 
-        //    if (!data.Any())
-        //    {
-        //        Assert.Warn("There is no data in the table for this test case");
-        //    }
+        [Test]
+        public void must_get_winner_of_the_game()
+        {
+            string playerOneName = "Pablo";
+            string playerTwoName = "Jose";
 
-        //    Assert.IsTrue(data.All(x => x.DepartmentId == id));
-        //}
+            var game = _gameRepository.StartNewGame(playerOneName, playerTwoName);
+
+            GameOfDronesDataAccessLayer.DataAccess.Entities.Round instance = new GameOfDronesDataAccessLayer.DataAccess.Entities.Round
+            {
+                gameId = game.id,
+                playerOneMoveId = 1,
+                playerTwoMoveId = 2
+            };
+
+            // play three times
+            var round1 = _gameRepository.SetRound(instance);
+            var round2 = _gameRepository.SetRound(instance);
+            var round3 = _gameRepository.SetRound(instance);
+
+            var winner = _gameRepository.getWinner(game.id);
+
+            if (winner.gameWinnerId > 0)
+            {
+                Assert.Warn("There is no data for this test case");
+            }
+
+            else
+                Assert.IsNotNull(winner);
+        }
 
     }
 }

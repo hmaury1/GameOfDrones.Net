@@ -34,52 +34,11 @@ namespace GameOfDronesDataAccessLayer.Implementations
         {
             try
             {
-                Player playerOneInstance = PlayerRepository.FindBy(p => p.name == playerOneName).FirstOrDefault();
-                if(playerOneInstance == null)
-                {
-                    playerOneInstance = new Player
-                    {
-                        name = playerOneName
-                    };
-                    PlayerRepository.Add(playerOneInstance);
-                }
-                Player playerTwoInstance = PlayerRepository.FindBy(p => p.name == playerTwoName).FirstOrDefault();
-                if (playerTwoInstance == null)
-                {
-                    playerTwoInstance = new Player
-                    {
-                        name = playerTwoName
-                    };
-                    PlayerRepository.Add(playerTwoInstance);
-                }
-                PlayerRepository.Save();
+                Game gameInstance = GameRepository.StartNewGame(playerOneName, playerTwoName);
 
-                Game gameInstance = new Game
-                {
-                    playerOneId = playerOneInstance.id,
-                    playerTwoId = playerTwoInstance.id,
-                    createdOn = DateTime.Now
-                };
-                GameRepository.Add(gameInstance);
-                GameRepository.Save();
-
-                return new GameDataModel
-                {
-                    id = gameInstance.id,
-                    playerOneId = gameInstance.playerOneId,
-                    playerOne = new PlayerDataModel {
-                        id = gameInstance.playerOneId,
-                        name = playerOneInstance.name
-                    },
-                    playerTwoId = gameInstance.playerTwoId,
-                    playerTwo = new PlayerDataModel
-                    {
-                        id = gameInstance.playerTwoId,
-                        name = playerTwoInstance.name
-                    },
-                    gameWinnerId = gameInstance.gameWinnerId.HasValue ? gameInstance.gameWinnerId.Value : 0,
-                    createdOn = gameInstance.createdOn
-                };
+                // get result 
+                var data = this.GetResult(gameInstance.id);
+                return data.FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -126,51 +85,19 @@ namespace GameOfDronesDataAccessLayer.Implementations
         {
             try
             {
-                // get round winner
-                Nullable<int> roundWinnerId = null;
-                var gameInstance = GameRepository.FindBy(g => g.id == round.gameId).FirstOrDefault();
-
-                var moveOne = MoveRepository.FindBy(m => m.id == round.playerOneMoveId).FirstOrDefault();
-                var moveTwo = MoveRepository.FindBy(m => m.id == round.playerTwoMoveId).FirstOrDefault();
-
-                if (moveOne.beatMoveId == moveTwo.id) {
-                    roundWinnerId = gameInstance.playerOneId;
-                }
-
-                if (moveTwo.beatMoveId == moveOne.id)
-                {
-                    roundWinnerId = gameInstance.playerTwoId;
-                }
-
-                // save round
-                var roundInstance = new Round
+                Round roundInstance = new Round
                 {
                     id = round.id,
                     gameId = round.gameId,
                     playerOneMoveId = round.playerOneMoveId,
                     playerTwoMoveId = round.playerTwoMoveId,
-                    roundWinnerId = roundWinnerId
                 };
-                RoundRepository.Add(roundInstance);
-                RoundRepository.Save();
+                GameRepository.SetRound(roundInstance);
 
-                // get game winner
-                var scoreOne = RoundRepository.FindBy(r => r.gameId == gameInstance.id && gameInstance.playerOneId == r.roundWinnerId).Count();
-                var scoreTwo = RoundRepository.FindBy(r => r.gameId == gameInstance.id && gameInstance.playerTwoId == r.roundWinnerId).Count();
-
-                if (scoreOne >= 3) {
-                    gameInstance.gameWinnerId = gameInstance.playerOneId;
-                    GameRepository.Save();
-                }
-
-                if (scoreTwo >= 3)
-                {
-                    gameInstance.gameWinnerId = gameInstance.playerOneId;
-                    GameRepository.Save();
-                }
+                GameRepository.getWinner(round.gameId);
 
                 // get result 
-                var data = this.GetResult(gameInstance.id);
+                var data = this.GetResult(round.gameId);
                 return data.FirstOrDefault();
             }
             catch (Exception e)

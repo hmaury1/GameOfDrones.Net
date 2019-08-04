@@ -9,6 +9,8 @@ namespace GameOfDronesDataAccessLayer.DataAccess.Interfaces
 {
     public interface IGameRepository : IRepository<Game>
     {
-        
+        Game StartNewGame(string playerOneName, string playerTwoName);
+        Game SetRound(Round round);
+        Game getWinner(int id);
     }
 }
