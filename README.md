@@ -19,3 +19,8 @@ Build Test 2
 5. build and execute GDWebApiLayer project using chrome. Hopefully, this task will be executed correctly and you won’t encounter any errors. If errors do occur, make sure that steps 2, 3 and 4 have been completed successfully.
 
 6. the system will open your browser on http://localhost:49815/ without content. To show the application please install the Angular project https://github.com/hmaury1/GameOfDrones.Angular
+
+
+## Data Model
+
+![Optional Text](../master/Diagram.png)
