@@ -24,3 +24,7 @@ Build Test 2
 ## Data Model
 
 ![Optional Text](../master/Diagram.png)
+
+## Unit Test
+
+To run the test cases you need to have NUnit Test Adapter for Visual Studio.
